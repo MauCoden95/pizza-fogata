@@ -78,6 +78,16 @@ app.get('/bebidas', async (req,res) => {
 
 
 
+//Obtener todos los productos del tipo postres
+app.get('/postres', async (req,res) => {
+    try {
+        const postres = await pool.query("SELECT * FROM products WHERE type = 'Postres'");
+        res.status(200).send(postres.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+});
+
 
 
 
