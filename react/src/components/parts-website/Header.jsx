@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
+
 
 export const Header = () => {
   return (
@@ -8,22 +10,23 @@ export const Header = () => {
           <div>
             <span className='fas fa-user'></span>
             <a href="#" className='mr-2 hover:underline'> Login</a>|
-            <a href="#" className='ml-2 hover:underline'>Registro</a>
+            <Link to="http://localhost:5173/registro" className='ml-2 hover:underline'>Registro</Link>
           </div>
         </div>
 
       </div>
       <header className="w-full h-28 bg-orange-200">
         <div className='w-11/12 h-full m-auto flex justify-between'>
-          <a href="#">
+          <Link to="http://localhost:5173/">
             <img className='w-28' src="http://localhost:5173/img/Logo.png" alt="Logo" />
-          </a>
-          <nav className='w-2/4 h-full'>
+          </Link>
+          <nav className='w-3/5 h-full'>
             <ul className='w-full h-full flex items-center justify-between'>
-                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Pizzas</a></li>
-                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Empanadas</a></li>
-                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Bebidas</a></li>
-                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Postres</a></li>
+                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/pizzas">Pizzas</Link></li>
+                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/empanadas">Empanadas</Link></li>
+                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/bebidas">Bebidas</Link></li>
+                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/minutas">Minutas</Link></li>
+                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/postres">Postres</Link></li>
                 <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="#contact">Contacto</a></li>
             </ul>
           </nav>
