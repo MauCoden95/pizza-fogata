@@ -5,7 +5,9 @@ import { Banner } from './components/parts-website/Banner'
 import { About } from './components/parts-website/About'
 import { Menu } from './components/parts-website/Menu'
 import { Newsletter } from './components/parts-website/Newsletter'
+import { Chefs } from './components/parts-website/Chefs'
 import { Contact } from './components/parts-website/Contact'
+import { Footer } from './components/parts-website/Footer'
 
 function App() {
  
@@ -17,7 +19,9 @@ function App() {
       <About/>
       <Menu/>
       <Newsletter/>
+      <Chefs/>
       <Contact/>
+      <Footer/>
     </>
   )
 }
