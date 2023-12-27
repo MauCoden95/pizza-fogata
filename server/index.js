@@ -18,7 +18,7 @@ API REST
 ####################*/
 
 //Obtener todos los productos
-app.get('/products', async (req,res) => {
+app.get('/products', async (req, res) => {
     try {
         const allProducts = await pool.query("SELECT * FROM products");
         res.status(200).send(allProducts.rows);
@@ -30,7 +30,7 @@ app.get('/products', async (req,res) => {
 
 
 //Obtener todos los productos del tipo pizza
-app.get('/pizzas', async (req,res) => {
+app.get('/pizzas', async (req, res) => {
     try {
         const pizzas = await pool.query("SELECT * FROM products WHERE type = 'Pizza'");
         res.status(200).send(pizzas.rows);
@@ -42,7 +42,7 @@ app.get('/pizzas', async (req,res) => {
 
 
 //Obtener todos los productos del tipo minutas
-app.get('/minutas', async (req,res) => {
+app.get('/minutas', async (req, res) => {
     try {
         const pizzas = await pool.query("SELECT * FROM products WHERE type = 'Minutas'");
         res.status(200).send(pizzas.rows);
@@ -54,7 +54,7 @@ app.get('/minutas', async (req,res) => {
 
 
 //Obtener todos los productos del tipo empanadas
-app.get('/empanadas', async (req,res) => {
+app.get('/empanadas', async (req, res) => {
     try {
         const pizzas = await pool.query("SELECT * FROM products WHERE type = 'Empanadas'");
         res.status(200).send(pizzas.rows);
@@ -67,7 +67,7 @@ app.get('/empanadas', async (req,res) => {
 
 
 //Obtener todos los productos del tipo bebidas
-app.get('/bebidas', async (req,res) => {
+app.get('/bebidas', async (req, res) => {
     try {
         const pizzas = await pool.query("SELECT * FROM products WHERE type = 'Bebidas'");
         res.status(200).send(pizzas.rows);
@@ -79,7 +79,7 @@ app.get('/bebidas', async (req,res) => {
 
 
 //Obtener todos los productos del tipo postres
-app.get('/postres', async (req,res) => {
+app.get('/postres', async (req, res) => {
     try {
         const postres = await pool.query("SELECT * FROM products WHERE type = 'Postres'");
         res.status(200).send(postres.rows);
@@ -87,6 +87,10 @@ app.get('/postres', async (req,res) => {
         console.log(error.message);
     }
 });
+
+
+
+
 
 
 

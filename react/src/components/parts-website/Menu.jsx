@@ -7,7 +7,7 @@ export const Menu = () => {
   const [drinks, setDrinks] = useState([]);
   const [minutas, setMinutas] = useState([]);
   const [postres, setPostres] = useState([]);
-  const [visible,setVisible] = useState(1);
+  const [visible, setVisible] = useState(1);
 
 
   const visiblePizzas = () => {
@@ -42,7 +42,7 @@ export const Menu = () => {
       });
 
 
-      axios.get('http://localhost:5000/empanadas')
+    axios.get('http://localhost:5000/empanadas')
       .then(response => {
         setEmpanadas(response.data);
         console.log(empanadas);
@@ -52,7 +52,7 @@ export const Menu = () => {
       });
 
 
-      axios.get('http://localhost:5000/bebidas')
+    axios.get('http://localhost:5000/bebidas')
       .then(response => {
         setDrinks(response.data);
         console.log(drinks);
@@ -62,7 +62,7 @@ export const Menu = () => {
       });
 
 
-      axios.get('http://localhost:5000/minutas')
+    axios.get('http://localhost:5000/minutas')
       .then(response => {
         setMinutas(response.data);
         console.log(minutas);
@@ -72,7 +72,7 @@ export const Menu = () => {
       });
 
 
-      axios.get('http://localhost:5000/postres')
+    axios.get('http://localhost:5000/postres')
       .then(response => {
         setPostres(response.data);
         console.log(postres);
@@ -101,30 +101,30 @@ export const Menu = () => {
               <div className="w-3/5 h-auto" key={element.id}>
                 <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
                 <h3 className='text-center text-2xl mb-4 text-red-500 mb-1'>{element.name}</h3>
-                <div className='w-full min-h-0 flex justify-between'> 
-                    <h4 className='text-sm text-center'>
-                        Grande: <span className='block mb-1'>{element.price_big} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                <div className='w-full min-h-0 flex justify-between'>
+                  <h4 className='text-sm text-center'>
+                    Grande: <span className='block mb-1'>{element.price_big} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
 
-                    <h4 className='text-sm text-center'>
-                        Chica: <span className='block mb-1'>{element.price_small} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                  <h4 className='text-sm text-center'>
+                    Chica: <span className='block mb-1'>{element.price_small} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
 
-                    <h4 className='text-sm text-center'>
-                        Porcion: <span className='block'>{element.portion} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                  <h4 className='text-sm text-center'>
+                    Porcion: <span className='block'>{element.portion} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
                 </div>
               </div>
             ))}
@@ -142,24 +142,24 @@ export const Menu = () => {
               <div className="w-3/5 h-auto" key={element.id}>
                 <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
                 <h3 className='text-center text-2xl mb-4 text-red-500 mb-1'>{element.name}</h3>
-                <div className='w-full min-h-0 flex justify-evenly'> 
-                    <h4 className='text-sm text-center'>
-                        Docena: <span className='block mb-1'>{element.price_big} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                <div className='w-full min-h-0 flex justify-evenly'>
+                  <h4 className='text-sm text-center'>
+                    Docena: <span className='block mb-1'>{element.price_big} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
 
-                    <h4 className='text-sm text-center'>
-                        Unidad: <span className='block mb-1'>{element.price_small} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                  <h4 className='text-sm text-center'>
+                    Unidad: <span className='block mb-1'>{element.price_small} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
 
-                   
+
                 </div>
               </div>
             ))}
@@ -178,16 +178,16 @@ export const Menu = () => {
               <div className="w-3/5 h-auto" key={element.id}>
                 <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
                 <h3 className='text-center text-2xl text-red-500 mb-1'>{element.name}</h3>
-                <div className='w-full min-h-0 flex justify-center'> 
-                    <h4 className='text-sm text-center'>
-                        <span className='block mb-1'>{element.price_big} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                <div className='w-full min-h-0 flex justify-center'>
+                  <h4 className='text-sm text-center'>
+                    <span className='block mb-1'>{element.price_big} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
 
-                  
+
                 </div>
               </div>
             ))}
@@ -206,16 +206,16 @@ export const Menu = () => {
               <div className="w-3/5 h-auto" key={element.id}>
                 <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
                 <h3 className='text-center text-2xl text-red-500 mb-1'>{element.name}</h3>
-                <div className='w-full min-h-0 flex justify-center'> 
-                    <h4 className='text-sm text-center'>
-                        <span className='block mb-1'>{element.price_big} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                <div className='w-full min-h-0 flex justify-center'>
+                  <h4 className='text-sm text-center'>
+                    <span className='block mb-1'>{element.price_big} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
 
-                  
+
                 </div>
               </div>
             ))}
@@ -233,20 +233,22 @@ export const Menu = () => {
               <div className="w-3/5 h-auto" key={element.id}>
                 <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
                 <h3 className='text-center text-2xl text-red-500 mb-1'>{element.name}</h3>
-                <div className='w-full min-h-0 flex justify-center'> 
-                    <h4 className='text-sm text-center'>
-                        <span className='block mb-1'>{element.price_big} $</span>
-                        <div>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                          <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                        </div>
-                    </h4>
+                <div className='w-full min-h-0 flex justify-center'>
+                  <h4 className='text-sm text-center'>
+                    <span className='block mb-1'>{element.price_big} $</span>
+                    <div>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
                 </div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      
     </section>
   )
 }

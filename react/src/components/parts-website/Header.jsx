@@ -6,7 +6,8 @@ export const Header = () => {
       <div className="w-full h-10 bg-red-700">
         <div className='w-11/12 h-full m-auto text-white flex items-center justify-end'>
           <div>
-            <a href="#" className='mr-2 hover:underline'><span className='fas fa-user'></span> Login</a>|
+            <span className='fas fa-user'></span>
+            <a href="#" className='mr-2 hover:underline'> Login</a>|
             <a href="#" className='ml-2 hover:underline'>Registro</a>
           </div>
         </div>
@@ -23,6 +24,7 @@ export const Header = () => {
                 <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Empanadas</a></li>
                 <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Bebidas</a></li>
                 <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="">Postres</a></li>
+                <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="#contact">Contacto</a></li>
             </ul>
           </nav>
         </div>
