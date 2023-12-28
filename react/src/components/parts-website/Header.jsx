@@ -9,7 +9,7 @@ export const Header = () => {
         <div className='w-11/12 h-full m-auto text-white flex items-center justify-end'>
           <div>
             <span className='fas fa-user'></span>
-            <a href="#" className='mr-2 hover:underline'> Login</a>|
+            <Link to="http://localhost:5173/login" className='mr-2 hover:underline'> Login</Link>|
             <Link to="http://localhost:5173/registro" className='ml-2 hover:underline'>Registro</Link>
           </div>
         </div>

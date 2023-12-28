@@ -8,6 +8,7 @@ import { Bebidas } from './components/pages/Bebidas'
 import { Minutas } from './components/pages/Minutas'
 import { Postres } from './components/pages/Postres'
 import { Register } from './components/pages/Register'
+import { Login } from './components/pages/Login'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/minutas' element={<Minutas />}></Route>
         <Route path='/postres' element={<Postres />}></Route>
         <Route path='/registro' element={<Register />}></Route>
+        <Route path='/login' element={<Login />}></Route>
       </Routes>
     </>
   )
