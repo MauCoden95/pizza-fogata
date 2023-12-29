@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react'
+import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 
 
@@ -13,15 +13,15 @@ import { Footer } from '../parts-website/Footer'
 
 export const Home = () => {
 
+    const [userData, setUserData] = useState(null);
+
     useEffect(() => {
-        axios.get('http://localhost:5000/profile', { withCredentials: true })
-            .then(response => {
-                console.log(response.data);
-                
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        const userDataString = localStorage.getItem('userData');
+
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            console.log("DATOS: ",userData);
+        }
     }, []);
 
 

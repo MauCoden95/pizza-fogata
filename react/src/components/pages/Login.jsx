@@ -13,6 +13,8 @@ export const Login = () => {
         password: ''
     });
 
+    const [loginError,setLoginError] = useState('');
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
@@ -23,24 +25,26 @@ export const Login = () => {
         e.preventDefault();
 
 
-        axios.post('http://localhost:5000/login', formData)
+        if (formData.email == '' || formData.password == '') {
+            setLoginError('Error, campos del formulario vacíos');
+        }else{
+            axios.post('http://localhost:5000/login', formData)
             .then(response => {
+                localStorage.setItem('userData', JSON.stringify(response.data[0]));
+                setLoginError('');
                 navigate('/');
-                console.log(response.data[0]);
             })
             .catch(error => {
-                //console.log("LOGIN INCORRECTO");
-                
-                console.error('Error en la petición:', error);
+                setLoginError("Error, usuario y/o contraseña incorrectos");
+                console.error("Error, usuario y/o contraseña incorrectos");
             });
+        
+        }
 
-        axios.get('http://localhost:5000/profile', { withCredentials: true })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+       
+
+
+        
 
 
 
@@ -51,8 +55,15 @@ export const Login = () => {
             <Header />
             <h1 className='text-center text-4xl my-12'>Login</h1>
             <form className='w-3/6 min-h-0 m-auto' action="" onSubmit={handleSubmit} method="post">
+               { loginError == '' ? (
+                    <span className='hidden w-full text-center m-auto text-white p-2 rounded-md'>{loginError}</span>
+                ):(
+                    <span className='block w-full text-center m-auto text-white bg-red-500 p-2 rounded-md'>{loginError}</span>
+                )
+
+               }
                 <input
-                    className='w-full p-2 rounded-xl mb-10'
+                    className='w-full p-2 rounded-xl mt-5 mb-10'
                     type='text'
                     placeholder='Correo electrónico...'
                     name='email'

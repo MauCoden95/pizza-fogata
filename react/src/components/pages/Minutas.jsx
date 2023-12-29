@@ -15,7 +15,6 @@ export const Minutas = () => {
         axios.get('http://localhost:5000/minutas')
             .then(response => {
                 setMinutas(response.data);
-                console.log(minutas);
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);

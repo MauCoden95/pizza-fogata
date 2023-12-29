@@ -14,7 +14,6 @@ export const Pizzas = () => {
     axios.get('http://localhost:5000/pizzas')
       .then(response => {
         setPizzas(response.data);
-        console.log(pizzas);
       })
       .catch(error => {
         console.error('Error al hacer la solicitud:', error);

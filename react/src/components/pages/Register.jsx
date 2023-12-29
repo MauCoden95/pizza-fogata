@@ -15,6 +15,8 @@ export const Register = () => {
         confirmPassword: '',
     });
 
+    const [registerSuccess, setRegisterSuccess] = useState('');
+    const [registerFailed, setRegisterFailed] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -25,19 +27,36 @@ export const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (formData.password === formData.confirmPassword) {
-            axios.post('http://localhost:5000/register', formData)
-                .then(response => {
-                    console.log('Respuesta exitosa:', response.data);
-                })
-                .catch(error => {
-                    console.error('Error en la petición:', error);
-                });
-        } else {
-            console.log("NO SON IGUALES");
+
+        if (formData.name == '' || formData.address == '' || formData.email == '' || formData.dni == '' || formData.phone == '' || formData.password == '' || formData.confirmPassword == '') {
+            setRegisterFailed("Error, campos vacíos");
+            setRegisterSuccess('');
+        }else{
+            if(formData.password.length < 8 || formData.confirmPassword.length < 8) {
+                setRegisterSuccess('');
+                setRegisterFailed("Error, las contraseñas no pueden tener menos de 8 caracteres");
+            }else{
+                if (formData.password === formData.confirmPassword) {
+                    axios.post('http://localhost:5000/register', formData)
+                        .then(response => {
+                            setRegisterFailed("");
+                            setRegisterSuccess('Nuevo usuario registrado con exito!!!');
+                            console.log('Respuesta exitosa:', response.data);
+                        })
+                        .catch(error => {
+                            setRegisterSuccess('');
+                            setRegisterFailed("No se pudo registrar el usuario");
+                            console.error('Error en la petición:', error);
+                        });
+                } else {
+                    setRegisterFailed("Error, las contraseñas no coinciden");
+                }
+            }
         }
 
-       
+
+      
+
     };
 
 
@@ -51,7 +70,18 @@ export const Register = () => {
                 method='post'
                 onSubmit={handleSubmit}
             >
-
+                {registerSuccess == '' ? (
+                    <span className='hidden w-full text-center m-auto text-white p-2 mb-5 rounded-md'>{registerSuccess}</span>
+                ) : (
+                    <span className='block w-full text-center m-auto text-white mb-5 bg-green-700 p-2 rounded-md'>{registerSuccess}</span>
+                )
+                }
+                {registerFailed == '' ? (
+                    <span className='hidden w-full text-center m-auto text-white p-2 mb-5 rounded-md'>{registerFailed}</span>
+                ) : (
+                    <span className='block w-full text-center m-auto text-white mb-5 bg-red-500 p-2 rounded-md'>{registerFailed}</span>
+                )
+                }
                 <input
                     className='w-full p-2 rounded-xl mb-10'
                     type='text'

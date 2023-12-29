@@ -15,7 +15,6 @@ export const Bebidas = () => {
         axios.get('http://localhost:5000/bebidas')
             .then(response => {
                 setDrinks(response.data);
-                console.log(drinks);
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);

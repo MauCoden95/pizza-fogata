@@ -158,7 +158,7 @@ app.post('/login', async (req,res) => {
         if (passwordVerify) {
             //const user = userExists.rows;
             req.session.userData = userExists.rows;
-            res.json(userExists.rows);
+            res.json(req.session.userData);
         }else{
             res.status(500).send("Error");
         }

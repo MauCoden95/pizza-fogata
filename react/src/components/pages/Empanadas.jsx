@@ -12,10 +12,10 @@ export const Empanadas = () => {
     const [empanadas, setEmpanadas] = useState([]);
 
     useEffect(() => {
+        console.log("-----------------------------------------------------")
         axios.get('http://localhost:5000/empanadas')
             .then(response => {
                 setEmpanadas(response.data);
-                console.log(empanadas);
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);

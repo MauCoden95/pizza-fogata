@@ -15,7 +15,6 @@ export const Postres = () => {
         axios.get('http://localhost:5000/postres')
             .then(response => {
                 setPostres(response.data);
-                console.log(postres);
             })
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
