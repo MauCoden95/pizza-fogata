@@ -38,8 +38,8 @@ export const Header = () => {
               <h2 className='text-center cursor-pointer' onClick={toggleOptions}>Bienvenido, {userData.name} <span className='fas fa-user'></span> </h2>
               {/* <a onClick={handleLogout} className='cursor-pointer hover:text-underline'>Cerrar Sesión</a> */}
               <div className={`${showOptions ? 'block' : 'hidden'}  absolute top-full right-3 w-52 h-auto duration-300 z-40 bg-white border-2 border-red-500`}>
-                <a className='block py-3 w-full duration-300 hover:bg-red-500 hover:text-white text-center text-red-600 cursor-pointer hover:text-underline'>Configuración</a>
-                <a onClick={handleLogout} className='block py-3 w-full duration-300 hover:bg-red-500 hover:text-white text-center text-red-600 cursor-pointer hover:text-underline'>Cerrar Sesión</a>
+                <Link to="http://localhost:5173/configuracion" className='block py-3 w-full duration-300 hover:bg-red-500 hover:text-white text-center text-red-600 cursor-pointer hover:text-underline'><i class="fas fa-cog"></i> Configuración</Link>
+                <a onClick={handleLogout} className='block py-3 w-full duration-300 hover:bg-red-500 hover:text-white text-center text-red-600 cursor-pointer hover:text-underline'><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
               </div>
             </div>
           ) : (

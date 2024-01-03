@@ -170,15 +170,56 @@ app.post('/login', async (req,res) => {
 
 
 
-//Acceder a los datos del usuario logeado
-app.get('/profile', async (req, res) => {
-    if (req.session.userData) {
-      const userData = await req.session.userData;
-      res.json(userData);
-    } else {
-      res.json("Usuario no autenticado");
+
+//Actualizar datos del usuario
+app.put('/update/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;  
+    
+    
+
+    const userSearch = await pool.query(`SELECT id FROM users WHERE id = ${id}`);
+
+    if (userSearch.rows.length > 0) {
+
+        const userId = userSearch.rows[0].id;
+        const passwordHash = await bcrypt.hash(data.password, 10);
+
+        const updateUser = await pool.query(`UPDATE users SET address = '${data.address}', phone = ${data.phone}, password = '${passwordHash}' WHERE id = ${userId};`);
+
+        
+        if (updateUser) {
+            res.status(200).send("Usuario actualizado con exito!!!");         
+        }else{
+            res.status(500).send("Usuario no actualizado");     
+        }
+        
+    }else{
+        res.status(404).send("Usuario no encontrado");     
     }
+
+   
+  
   });
+
+
+
+//Eliminar usuario
+app.delete('/delete_user/:id', async (req,res) => {
+    const id = req.params.id;
+
+    try {
+        const deleteUser = await pool.query(`DELETE FROM users WHERE id = ${id}`);
+        if (deleteUser) {
+            res.status(200).send("Usuario eliminado con exito!!!");
+        }else{
+            res.status(500).send("Error");    
+        }
+    } catch (error) {
+        res.status(500).send("Error");
+    }
+})
+
 
 
 

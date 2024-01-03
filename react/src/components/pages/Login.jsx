@@ -13,7 +13,7 @@ export const Login = () => {
         password: ''
     });
 
-    const [loginError,setLoginError] = useState('');
+    const [loginError, setLoginError] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -27,24 +27,24 @@ export const Login = () => {
 
         if (formData.email == '' || formData.password == '') {
             setLoginError('Error, campos del formulario vacíos');
-        }else{
+        } else {
             axios.post('http://localhost:5000/login', formData)
-            .then(response => {
-                localStorage.setItem('userData', JSON.stringify(response.data[0]));
-                setLoginError('');
-                navigate('/');
-            })
-            .catch(error => {
-                setLoginError("Error, usuario y/o contraseña incorrectos");
-                console.error("Error, usuario y/o contraseña incorrectos");
-            });
-        
+                .then(response => {
+                    localStorage.setItem('userData', JSON.stringify(response.data[0]));
+                    setLoginError('');
+                    navigate('/');
+                })
+                .catch(error => {
+                    setLoginError("Error, usuario y/o contraseña incorrectos");
+                    console.error("Error, usuario y/o contraseña incorrectos");
+                });
+
         }
 
-       
 
 
-        
+
+
 
 
 
@@ -55,29 +55,34 @@ export const Login = () => {
             <Header />
             <h1 className='text-center text-4xl my-12'>Login</h1>
             <form className='w-3/6 min-h-0 m-auto' action="" onSubmit={handleSubmit} method="post">
-               { loginError == '' ? (
+                {loginError == '' ? (
                     <span className='hidden w-full text-center m-auto text-white p-2 rounded-md'>{loginError}</span>
-                ):(
+                ) : (
                     <span className='block w-full text-center m-auto text-white bg-red-500 p-2 rounded-md'>{loginError}</span>
                 )
 
-               }
-                <input
-                    className='w-full p-2 rounded-xl mt-5 mb-10'
-                    type='text'
-                    placeholder='Correo electrónico...'
-                    name='email'
-                    value={formData.email}
-                    onChange={handleChange}
-                />
-                <input
-                    className='w-full p-2 rounded-xl mb-10'
-                    type='password'
-                    placeholder='Contraseña...'
-                    name='password'
-                    value={formData.password}
-                    onChange={handleChange}
-                />
+                }
+                <div>
+                    <input
+                        className='w-full p-2 rounded-xl mt-5 mb-10'
+                        type='text'
+                        placeholder='Correo electrónico...'
+                        name='email'
+                        value={formData.email}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div>
+                    <input
+                        className='w-full p-2 rounded-xl mb-10'
+                        type='password'
+                        placeholder='Contraseña...'
+                        name='password'
+                        value={formData.password}
+                        onChange={handleChange}
+                    />
+                </div>
                 <input className='w-full p-2 rounded-xl text-white mb-10 bg-red-500 hover:bg-red-800 duration-300 cursor-pointer' type="submit" value='Contraseña' />
             </form>
             <Footer />
