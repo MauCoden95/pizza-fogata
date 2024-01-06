@@ -1,0 +1,16 @@
+.nav_show {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  transition: clip-path .7s ease-in-out;
+}
+    
+.nav_hidden {
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transition: clip-path .7s ease-in-out;
+}
+    
+@media (min-width: 768px) {
+    .nav_hidden {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        transition: clip-path .7s ease-in-out;
+      }
+}

@@ -12,8 +12,8 @@ export const Chefs = () => {
         <section className='w-full min-h-0 mb-40 mt-20'>
             <div className='w-11/12 min-h-0 m-auto'>
                 <h2 className='text-center text-red-500 text-4xl my-14'>Nuestros cocineros</h2>
-                <div className='w-full flex justify-evenly'>
-                    <div className='w-2/5 h-full'>
+                <div className='w-full flex flex-col sm:flex-row justify-evenly'>
+                    <div className='w-5/6 sm:w-2/5 h-full m-auto'>
                         <p className='text-justify'>
                             Sumérgete en el mundo de Pizza Fogata y conoce a nuestros talentosos cocineros. Cada uno aporta su pasión única, combinando habilidad artesanal y amor por la autenticidad. Descubre las historias detrás de cada pizza, donde la tradición se fusiona con la innovación en manos de estos maestros culinarios excepcionales.
                         </p>
@@ -23,7 +23,7 @@ export const Chefs = () => {
                         </p>
                     </div>
 
-                    <div className='w-2/5 h-full'>
+                    <div className='w-full mt-10 md:mt-0 sm:w-2/5 h-full'>
                         <Swiper
                             slidesPerView={1}
                             pagination={{

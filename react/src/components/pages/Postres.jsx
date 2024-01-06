@@ -10,6 +10,7 @@ import axios from 'axios'
 export const Postres = () => {
 
     const [postres, setPostres] = useState([]);
+    const [selectedItems, setSelectedItems] = useState({});
 
     useEffect(() => {
         axios.get('http://localhost:5000/postres')
@@ -23,6 +24,23 @@ export const Postres = () => {
 
     const title = "Postres";
     const img = "http://localhost:5173/img/Frappe.png";
+
+
+
+    const handleDecrement = (productId) => {
+      setSelectedItems((prevItems) => ({
+        ...prevItems,
+        [productId]: Math.max((prevItems[productId] || 0) - 1, 0),
+      }));
+    };
+  
+    const handleIncrement = (productId) => {
+      setSelectedItems((prevItems) => ({
+        ...prevItems,
+        [productId]: (prevItems[productId] || 0) + 1,
+      }));
+    };
+
 
 
     return (
@@ -39,8 +57,9 @@ export const Postres = () => {
                   <h4 className='text-sm text-center'>
                     <span className='block mb-1'>{element.price_big} $</span>
                     <div>
-                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                      <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                      <button onClick={() => handleDecrement(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <span className='mx-1'>{selectedItems[element.id] || 0}</span>
+                      <button onClick={() => handleIncrement(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                     </div>
                   </h4>
                 </div>

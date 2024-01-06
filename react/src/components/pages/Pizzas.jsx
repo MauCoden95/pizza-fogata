@@ -10,6 +10,56 @@ export const Pizzas = () => {
 
   const [pizzas, setPizzas] = useState([]);
 
+
+  const [selectedItemsBigPizza, setSelectedItemsBigPizza] = useState({});
+  const [selectedItemsSmallPizza, setSelectedItemsSmallPizza] = useState({});
+  const [selectedItemsPortionPizza, setSelectedItemsPortionPizza] = useState({});
+
+
+  const handleDecrementBigPizza = (productId) => {
+    setSelectedItemsBigPizza((prevItems) => ({
+      ...prevItems,
+      [productId]: Math.max((prevItems[productId] || 0) - 1, 0),
+    }));
+  };
+
+  const handleIncrementBigPizza = (productId) => {
+    setSelectedItemsBigPizza((prevItems) => ({
+      ...prevItems,
+      [productId]: (prevItems[productId] || 0) + 1,
+    }));
+  };
+
+  const handleDecrementSmallPizza = (productId) => {
+    setSelectedItemsSmallPizza((prevItems) => ({
+      ...prevItems,
+      [productId]: Math.max((prevItems[productId] || 0) - 1, 0),
+    }));
+  };
+
+  const handleIncrementSmallPizza = (productId) => {
+    setSelectedItemsSmallPizza((prevItems) => ({
+      ...prevItems,
+      [productId]: (prevItems[productId] || 0) + 1,
+    }));
+  };
+
+  const handleDecrementPortionPizza = (productId) => {
+    setSelectedItemsPortionPizza((prevItems) => ({
+      ...prevItems,
+      [productId]: Math.max((prevItems[productId] || 0) - 1, 0),
+    }));
+  };
+
+  const handleIncrementPortionPizza = (productId) => {
+    setSelectedItemsPortionPizza((prevItems) => ({
+      ...prevItems,
+      [productId]: (prevItems[productId] || 0) + 1,
+    }));
+  };
+
+
+
   useEffect(() => {
     axios.get('http://localhost:5000/pizzas')
       .then(response => {
@@ -37,24 +87,27 @@ export const Pizzas = () => {
                 <h4 className='text-sm text-center'>
                   Grande: <span className='block mb-1'>{element.price_big} $</span>
                   <div>
-                    <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                    <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    <button onClick={() => handleDecrementBigPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                    <span className='mx-1'>{selectedItemsBigPizza[element.id] || 0}</span>
+                    <button onClick={() => handleIncrementBigPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                   </div>
                 </h4>
 
-                <h4 className='text-sm text-center'>
+                <h4 className='text-xs md:text-sm text-center mb-5 md:mb-0'>
                   Chica: <span className='block mb-1'>{element.price_small} $</span>
                   <div>
-                    <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                    <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    <button onClick={() => handleDecrementSmallPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                    <span className='mx-1'>{selectedItemsSmallPizza[element.id] || 0}</span>
+                    <button onClick={() => handleIncrementSmallPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                   </div>
                 </h4>
 
-                <h4 className='text-sm text-center'>
-                  Porcion: <span className='block'>{element.portion} $</span>
+                <h4 className='text-xs md:text-sm text-center mb-5 md:mb-0'>
+                  Porcion: <span className='block mb-1'>{element.portion} $</span>
                   <div>
-                    <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                    <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    <button onClick={() => handleDecrementPortionPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                    <span className='mx-1'>{selectedItemsPortionPizza[element.id] || 0}</span>
+                    <button onClick={() => handleIncrementPortionPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                   </div>
                 </h4>
               </div>

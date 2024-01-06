@@ -10,6 +10,36 @@ import axios from 'axios'
 export const Empanadas = () => {
 
     const [empanadas, setEmpanadas] = useState([]);
+    const [selectedItemsDozenEmpanada, setSelectedItemsDozenEmpanada] = useState({});
+    const [selectedItemsUnitEmpanada, setSelectedItemsUnitEmpanada] = useState({});
+
+    const handleDecrementDozenEmpanada = (productId) => {
+        setSelectedItemsDozenEmpanada((prevItems) => ({
+            ...prevItems,
+            [productId]: Math.max((prevItems[productId] || 0) - 1, 0),
+        }));
+    };
+
+    const handleIncrementDozenEmpanada = (productId) => {
+        setSelectedItemsDozenEmpanada((prevItems) => ({
+            ...prevItems,
+            [productId]: (prevItems[productId] || 0) + 1,
+        }));
+    };
+
+    const handleDecrementUnitEmpanada = (productId) => {
+        setSelectedItemsUnitEmpanada((prevItems) => ({
+            ...prevItems,
+            [productId]: Math.max((prevItems[productId] || 0) - 1, 0),
+        }));
+    };
+
+    const handleIncrementUnitEmpanada = (productId) => {
+        setSelectedItemsUnitEmpanada((prevItems) => ({
+            ...prevItems,
+            [productId]: (prevItems[productId] || 0) + 1,
+        }));
+    };
 
     useEffect(() => {
         console.log("-----------------------------------------------------")
@@ -41,16 +71,18 @@ export const Empanadas = () => {
                                 <h4 className='text-sm text-center'>
                                     Docena: <span className='block mb-1'>{element.price_big} $</span>
                                     <div>
-                                        <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                                        <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                                        <button onClick={() => handleDecrementDozenEmpanada(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                                        <span className='mx-1'>{selectedItemsDozenEmpanada[element.id] || 0}</span>
+                                        <button onClick={() => handleIncrementDozenEmpanada(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                                     </div>
                                 </h4>
 
                                 <h4 className='text-sm text-center'>
                                     Unidad: <span className='block mb-1'>{element.price_small} $</span>
                                     <div>
-                                        <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                                        <button className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                                        <button onClick={() => handleDecrementUnitEmpanada(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                                        <span className='mx-1'>{selectedItemsUnitEmpanada[element.id] || 0}</span>
+                                        <button onClick={() => handleIncrementUnitEmpanada(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                                     </div>
                                 </h4>
 

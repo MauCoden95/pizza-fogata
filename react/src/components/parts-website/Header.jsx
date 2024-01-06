@@ -1,11 +1,13 @@
 import { React, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import '../../assets/css/styles.css'
 
 
 export const Header = () => {
 
   const [userData, setUserData] = useState(null);
   const [showOptions, setOptions] = useState(false);
+  const [showNav, setShowNav] = useState(true);
 
   useEffect(() => {
     const userDataString = localStorage.getItem('userData');
@@ -27,11 +29,14 @@ export const Header = () => {
     setOptions(!showOptions);
   }
 
+  const toggleNavbar = () => {
+    setShowNav(!showNav);
+  }
 
   return (
     <div>
       <div className="w-full h-10 bg-red-700">
-        <div className='relative w-11/12 h-full m-auto text-white flex items-center justify-end'>
+        <div className='relative w-5/6 md:w-11/12 h-full m-auto text-white flex items-center justify-end'>
           {userData ? (
             <div className='w-auto flex'>
               <h3>Mi carrito <span>(0)</span> <i class="fas fa-shopping-cart mr-6"></i></h3>
@@ -44,8 +49,8 @@ export const Header = () => {
             </div>
           ) : (
             <div>
-              <Link to="http://localhost:5173/login" className='mr-2 hover:underline'> Login</Link>|
-              <Link to="http://localhost:5173/registro" className='ml-2 hover:underline'>Registro</Link>
+              <Link to="http://localhost:5173/login" className='text-sm lg:text-base mr-2 hover:underline'> Login</Link>|
+              <Link to="http://localhost:5173/registro" className='text-sm lg:text-base ml-2 hover:underline'>Registro</Link>
             </div>
           )}
         </div>
@@ -53,18 +58,19 @@ export const Header = () => {
 
       </div>
       <header className="w-full h-28 bg-orange-200">
-        <div className='w-11/12 h-full m-auto flex justify-between'>
+        <div className='relative w-5/6 md:w-11/12 h-full m-auto flex justify-between'>
           <Link to="http://localhost:5173/">
             <img className='w-28' src="http://localhost:5173/img/Logo.png" alt="Logo" />
           </Link>
-          <nav className='w-3/5 h-full'>
-            <ul className='w-full h-full flex items-center justify-between'>
-              <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/pizzas">Pizzas</Link></li>
-              <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/empanadas">Empanadas</Link></li>
-              <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/bebidas">Bebidas</Link></li>
-              <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/minutas">Minutas</Link></li>
-              <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><Link to="http://localhost:5173/postres">Postres</Link></li>
-              <li className='text-red-500 px-2 py-1 rounded-md duration-300 cursor-pointer hover:text-white hover:bg-red-500 text-xl'><a href="#contact">Contacto</a></li>
+          <button onClick={toggleNavbar} className='block md:hidden'><i class="fas fa-pizza-slice text-4xl text-red-500"></i></button>
+          <nav className='absolute top-full z-40 md:relative md:top-1/3  md:block w-full md:w-3/5 h-full'>
+            <ul className={`${ showNav ? 'nav_hidden' : 'nav_show'} w-full h-auto flex flex-col md:flex-row items-center justify-between bg-orange-200`}>
+              <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/pizzas">Pizzas</Link></li>
+              <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/empanadas">Empanadas</Link></li>
+              <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/bebidas">Bebidas</Link></li>
+              <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/minutas">Minutas</Link></li>
+              <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/postres">Postres</Link></li>
+              <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><a href="#contact">Contacto</a></li>
             </ul>
           </nav>
         </div>
