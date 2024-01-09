@@ -12,6 +12,7 @@ export const Empanadas = () => {
     const [empanadas, setEmpanadas] = useState([]);
     const [selectedItemsDozenEmpanada, setSelectedItemsDozenEmpanada] = useState({});
     const [selectedItemsUnitEmpanada, setSelectedItemsUnitEmpanada] = useState({});
+    const [userLogged, setUserLogged] = useState(false);
 
     const handleDecrementDozenEmpanada = (productId) => {
         setSelectedItemsDozenEmpanada((prevItems) => ({
@@ -50,6 +51,15 @@ export const Empanadas = () => {
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
             });
+
+
+        const userDataString = localStorage.getItem('userData');
+
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            console.log("DATOS: ", userData);
+            setUserLogged(true);
+        }
     }, []);
 
     const title = "Empanadas";
@@ -62,7 +72,7 @@ export const Empanadas = () => {
             <Header />
             <Title title={title} image={img} />
             <div className='block w-full h-full'>
-                <div className="w-full h-[35rem] pb-12 overflow-hidden grid gap-10 self-center justify-items-center grid-cols-3">
+                <div className="w-full min-h-0 pb-12 overflow-hidden grid gap-10 self-center justify-items-center grid-cols-3">
                     {empanadas.map((element) => (
                         <div className="w-3/5 h-auto" key={element.id}>
                             <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
@@ -88,6 +98,7 @@ export const Empanadas = () => {
 
 
                             </div>
+                            { userLogged == true ? <button className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : '' }
                         </div>
                     ))}
                 </div>

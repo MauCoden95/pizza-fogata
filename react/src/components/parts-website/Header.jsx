@@ -63,7 +63,7 @@ export const Header = () => {
             <img className='w-28' src="http://localhost:5173/img/Logo.png" alt="Logo" />
           </Link>
           <button onClick={toggleNavbar} className='block md:hidden'><i class="fas fa-pizza-slice text-4xl text-red-500"></i></button>
-          <nav className='absolute top-full z-40 md:relative md:top-1/3  md:block w-full md:w-3/5 h-full'>
+          <nav className='absolute top-full z-40 md:z-10 md:relative md:top-1/3  md:block w-full md:w-3/5 h-full'>
             <ul className={`${ showNav ? 'nav_hidden' : 'nav_show'} w-full h-auto flex flex-col md:flex-row items-center justify-between bg-orange-200`}>
               <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/pizzas">Pizzas</Link></li>
               <li className='text-red-500 px-2 py-2.5 md:py-1 rounded-md duration-300 cursor-pointer hover:text-white lg:hover:bg-red-500 text-sm lg:text-xl'><Link to="http://localhost:5173/empanadas">Empanadas</Link></li>

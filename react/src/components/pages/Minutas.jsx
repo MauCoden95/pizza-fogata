@@ -10,6 +10,7 @@ import axios from 'axios'
 export const Minutas = () => {
 
     const [minutas, setMinutas] = useState([]);
+    const [userLogged, setUserLogged] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:5000/minutas')
@@ -19,6 +20,15 @@ export const Minutas = () => {
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
             });
+
+
+        const userDataString = localStorage.getItem('userData');
+
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            console.log("DATOS: ", userData);
+            setUserLogged(true);
+        }
     }, []);
 
     const title = "Minutas";
@@ -63,6 +73,7 @@ export const Minutas = () => {
 
 
                             </div>
+                            { userLogged == true ? <button className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : '' }
                         </div>
                     ))}
                 </div>

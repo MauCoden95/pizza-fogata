@@ -11,6 +11,7 @@ export const Bebidas = () => {
 
     const [drinks, setDrinks] = useState([]);
     const [selectedItems, setSelectedItems] = useState({});
+    const [userLogged, setUserLogged] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:5000/bebidas')
@@ -20,6 +21,16 @@ export const Bebidas = () => {
             .catch(error => {
                 console.error('Error al hacer la solicitud:', error);
             });
+
+
+
+        const userDataString = localStorage.getItem('userData');
+
+        if (userDataString) {
+            const userData = JSON.parse(userDataString);
+            console.log("DATOS: ", userData);
+            setUserLogged(true);
+        }
     }, []);
 
     const title = "Bebidas";
@@ -62,6 +73,7 @@ export const Bebidas = () => {
 
 
                             </div>
+                            { userLogged == true ? <button className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : '' }
                         </div>
                     ))}
                 </div>
