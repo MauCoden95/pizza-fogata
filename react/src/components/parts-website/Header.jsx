@@ -8,6 +8,7 @@ export const Header = () => {
   const [userData, setUserData] = useState(null);
   const [showOptions, setOptions] = useState(false);
   const [showNav, setShowNav] = useState(true);
+  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const userDataString = localStorage.getItem('userData');
@@ -17,6 +18,13 @@ export const Header = () => {
       setUserData(parsedUserData);
       console.log("DATOS: ", parsedUserData?.name);
     }
+
+
+
+    //Carrito
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCartItems(cart);
+    console.log(cart);
   }, []);
 
   const handleLogout = () => {
@@ -39,7 +47,7 @@ export const Header = () => {
         <div className='relative w-5/6 md:w-11/12 h-full m-auto text-white flex items-center justify-end'>
           {userData ? (
             <div className='w-auto flex'>
-              <h3>Mi carrito <span>(0)</span> <i class="fas fa-shopping-cart mr-6"></i></h3>
+              <h3>Mi carrito <span>({cartItems.length})</span> <i class="fas fa-shopping-cart mr-6"></i></h3>
               <h2 className='text-center cursor-pointer' onClick={toggleOptions}>Bienvenido, {userData.name} <span className='fas fa-user'></span> </h2>
               {/* <a onClick={handleLogout} className='cursor-pointer hover:text-underline'>Cerrar Sesión</a> */}
               <div className={`${showOptions ? 'block' : 'hidden'}  absolute top-full right-3 w-52 h-auto duration-300 z-40 bg-white border-2 border-red-500`}>
