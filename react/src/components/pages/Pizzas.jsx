@@ -82,6 +82,29 @@ export const Pizzas = () => {
   const title = "Pizzas";
   const img = "http://localhost:5173/img/Muzzarella.png";
 
+  //Agregar al carrito
+  const addToCart = (product) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingProductIndex = cart.findIndex(
+      (item) => item.product === product.name && item.type === product.type
+    );
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].quantity += product.quantity;
+    } else {
+      cart.push({
+        product: product.name,
+        type: product.type,
+        quantity: product.quantity
+      });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log(localStorage.getItem('cart'));
+  };
+
   return (
     <div>
       <Header />

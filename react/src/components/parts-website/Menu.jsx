@@ -185,7 +185,9 @@ export const Menu = () => {
       cart.push({
         product: product.name,
         type: product.type,
-        quantity: product.quantity
+        quantity: product.quantity,
+        price: product.price,
+        img: product.img
       });
     }
 
@@ -226,8 +228,10 @@ export const Menu = () => {
                     {userLogged == true ? <button onClick={() =>
                       addToCart({
                         name: element.name,
-                        type: 'Grande',
-                        quantity: selectedItemsBigPizza[element.id] || 0
+                        type: 'Pizza Grande',
+                        quantity: selectedItemsBigPizza[element.id] || 0,
+                        price: selectedItemsBigPizza[element.id] * element.price_big,
+                        img: element.image
                       })
                     } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
@@ -242,8 +246,10 @@ export const Menu = () => {
                     {userLogged == true ? <button onClick={() =>
                       addToCart({
                         name: element.name,
-                        type: 'Grande',
-                        quantity: selectedItemsBigPizza[element.id] || 0
+                        type: 'Pizza Chica',
+                        quantity: selectedItemsSmallPizza[element.id] || 0,
+                        price: selectedItemsSmallPizza[element.id] * element.price_small,
+                        img: element.img
                       })
                     } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
@@ -259,7 +265,9 @@ export const Menu = () => {
                       addToCart({
                         name: element.name,
                         type: 'Porción',
-                        quantity: selectedItemsPortionPizza[element.id] || 0
+                        quantity: selectedItemsPortionPizza[element.id] || 0,
+                        price: selectedItemsPortionPizza[element.id] * element.portion,
+                        img: element.image
                       })
                     } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
@@ -293,7 +301,9 @@ export const Menu = () => {
                       addToCart({
                         name: element.name,
                         type: 'Docena',
-                        quantity: selectedItemsDozenEmpanada[element.id] || 0
+                        quantity: selectedItemsDozenEmpanada[element.id] || 0,
+                        price: selectedItemsDozenEmpanada[element.id] * element.price_big,
+                        img: element.image
                       })
                     } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
@@ -309,7 +319,9 @@ export const Menu = () => {
                       addToCart({
                         name: element.name,
                         type: 'Unidad',
-                        quantity: selectedItemsUnitEmpanada[element.id] || 0
+                        quantity: selectedItemsUnitEmpanada[element.id] || 0,
+                        price: selectedItemsUnitEmpanada[element.id] * element.price_small,
+                        img: element.image
                       })
                     } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
@@ -344,8 +356,10 @@ export const Menu = () => {
                 {userLogged == true ? <button onClick={() =>
                   addToCart({
                     name: element.name,
-                    type: '',
-                    quantity: selectedItems[element.id] || 0
+                    type: 'Bebidas',
+                    quantity: selectedItems[element.id] || 0,
+                    price: selectedItems[element.id] * element.price_big,
+                    img: element.image
                   })
                 } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
               </div>
@@ -375,8 +389,10 @@ export const Menu = () => {
                 {userLogged == true ? <button onClick={() =>
                   addToCart({
                     name: element.name,
-                    type: '',
-                    quantity: selectedItems[element.id] || 0
+                    type: 'Minutas',
+                    quantity: selectedItems[element.id] || 0,
+                    price: selectedItems[element.id] * element.price_big,
+                    img: element.image
                   })
                 } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
               </div>
@@ -412,8 +428,10 @@ export const Menu = () => {
                 {userLogged == true ? <button onClick={() =>
                   addToCart({
                     name: element.name,
-                    type: '',
-                    quantity: selectedItems[element.id] || 0
+                    type: 'Postres',
+                    quantity: selectedItems[element.id] || 0,
+                    price: selectedItems[element.id] * element.price_big,
+                    img: element.image
                   })
                 } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
               </div>
