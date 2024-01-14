@@ -60,28 +60,31 @@ export const Header = () => {
         </button>
 
         <div className='w-2/4 h-auto p-8 rounded-md bg-white flex items-center justify-center'>
-          <table className='w-4/5'>
-            <thead>
-              <tr>
-                <th className='bg-red-400 text-center'>Producto</th>
-                <th className='bg-red-400 text-center'>Tipo</th>
-                <th className='bg-red-400 text-center'>Cantidad</th>
-                <th className='bg-red-400 text-center'>Precio</th>
-                <th className='bg-red-400 text-center'>Imagen</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems.map((item, index) => (
-                <tr key={index}>
-                  <td className='text-center'>{item.product}</td>
-                  <td className='text-center'>{item.type}</td>
-                  <td className='text-center'>{item.quantity}</td>
-                  <td className='text-center'>{item.price}</td>
-                  <td className=''><img className='w-16 m-auto' src={`http://localhost:5173/img/${item.img}`} alt="Logo" /></td>
+          {
+            cartItems.length == 0 ? <h2 className='text-2xl'>No hay productos en el carrito</h2> : <table className='w-4/5'>
+              <thead>
+                <tr>
+                  <th className='bg-red-400 text-center'>Producto</th>
+                  <th className='bg-red-400 text-center'>Tipo</th>
+                  <th className='bg-red-400 text-center'>Cantidad</th>
+                  <th className='bg-red-400 text-center'>Precio</th>
+                  <th className='bg-red-400 text-center'>Imagen</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {cartItems.map((item, index) => (
+                  <tr key={index}>
+                    <td className='text-center'>{item.product}</td>
+                    <td className='text-center'>{item.type}</td>
+                    <td className='text-center'>{item.quantity}</td>
+                    <td className='text-center'>{item.price}</td>
+                    <td className=''><img className='w-16 m-auto' src={`http://localhost:5173/img/${item.img}`} alt="Logo" /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          }
+
         </div>
       </div>
       <div className="w-full h-10 bg-red-700">

@@ -10,6 +10,8 @@ import { Postres } from './components/pages/Postres'
 import { Register } from './components/pages/Register'
 import { Login } from './components/pages/Login'
 import { Settings } from './components/pages/Settings'
+import { LoginAdmin } from './components/pages/LoginAdmin'
+import { Dashboard } from './components/pages/Dashboard'
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path='/registro' element={<Register />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/configuracion' element={<Settings />}></Route>
+        <Route path='/login-admin' element={<LoginAdmin />}></Route>
+        <Route path='/dashboard' element={<Dashboard />}></Route>
       </Routes>
     </>
   )

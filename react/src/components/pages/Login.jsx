@@ -35,8 +35,8 @@ export const Login = () => {
                     navigate('/');
                 })
                 .catch(error => {
-                    setLoginError("Error, usuario y/o contraseña incorrectos");
-                    console.error("Error, usuario y/o contraseña incorrectos");
+                    setLoginError("Error, email y/o contraseña incorrectos");
+                    console.error("Error, email y/o contraseña incorrectos");
                 });
 
         }

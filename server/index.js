@@ -11,15 +11,15 @@ const session = require('express-session');
 //Middlewares
 const corsOptions = {
     origin: 'http://localhost:5173',
-    credentials: true, 
-  };
+    credentials: true,
+};
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
-  secret: 'tu-clave-secreta',
-  resave: false,
-  saveUninitialized: true,
+    secret: 'tu-clave-secreta',
+    resave: false,
+    saveUninitialized: true,
 }));
 
 
@@ -115,15 +115,15 @@ app.get('/postres', async (req, res) => {
 
 //USUARIOS
 //Registro de usuarios
-app.post('/register', async (req,res) => {
+app.post('/register', async (req, res) => {
     const data = req.body;
 
-    
+
     const userExists = await pool.query(`SELECT * FROM users WHERE email = '${data.email}'`);
 
     if (userExists.rows.length > 0) {
         res.status(500).send("El mail ya existe");
-    }else{
+    } else {
         const passwordHash = await bcrypt.hash(data.password, 10);
 
         await pool.query(`INSERT INTO users (name, address, dni, phone, password, email)
@@ -134,7 +134,7 @@ app.post('/register', async (req,res) => {
 
     }
 
-    
+
 });
 
 
@@ -143,7 +143,7 @@ app.post('/register', async (req,res) => {
 
 
 //Login
-app.post('/login', async (req,res) => {
+app.post('/login', async (req, res) => {
     const data = req.body;
 
     const userExists = await pool.query(`SELECT * FROM users WHERE email =  '${data.email}'`);
@@ -152,14 +152,14 @@ app.post('/login', async (req,res) => {
 
     if (userExists.rows.length == 0) {
         res.json("Email incorrecto");
-    }else{
-        const passwordVerify = await bcrypt.compare(data.password,userExists.rows[0].password);
+    } else {
+        const passwordVerify = await bcrypt.compare(data.password, userExists.rows[0].password);
 
         if (passwordVerify) {
             //const user = userExists.rows;
             req.session.userData = userExists.rows;
             res.json(req.session.userData);
-        }else{
+        } else {
             res.status(500).send("Error");
         }
     }
@@ -174,9 +174,9 @@ app.post('/login', async (req,res) => {
 //Actualizar datos del usuario
 app.put('/update/:id', async (req, res) => {
     const id = req.params.id;
-    const data = req.body;  
-    
-    
+    const data = req.body;
+
+
 
     const userSearch = await pool.query(`SELECT id FROM users WHERE id = ${id}`);
 
@@ -187,38 +187,138 @@ app.put('/update/:id', async (req, res) => {
 
         const updateUser = await pool.query(`UPDATE users SET address = '${data.address}', phone = ${data.phone}, password = '${passwordHash}' WHERE id = ${userId};`);
 
-        
+
         if (updateUser) {
-            res.status(200).send("Usuario actualizado con exito!!!");         
-        }else{
-            res.status(500).send("Usuario no actualizado");     
+            res.status(200).send("Usuario actualizado con exito!!!");
+        } else {
+            res.status(500).send("Usuario no actualizado");
         }
-        
-    }else{
-        res.status(404).send("Usuario no encontrado");     
+
+    } else {
+        res.status(404).send("Usuario no encontrado");
     }
 
-   
-  
-  });
+
+
+});
 
 
 
 //Eliminar usuario
-app.delete('/delete_user/:id', async (req,res) => {
+app.delete('/delete_user/:id', async (req, res) => {
     const id = req.params.id;
 
     try {
         const deleteUser = await pool.query(`DELETE FROM users WHERE id = ${id}`);
         if (deleteUser) {
             res.status(200).send("Usuario eliminado con exito!!!");
-        }else{
-            res.status(500).send("Error");    
+        } else {
+            res.status(500).send("Error");
         }
     } catch (error) {
         res.status(500).send("Error");
     }
 })
+
+
+
+
+
+
+
+
+//Administrador
+//Obtener todos los usuarios administradores
+app.get('/admins', async (req, res) => {
+    try {
+        const admins = await pool.query("SELECT * FROM users_admin");
+        res.status(200).send(admins.rows);
+    } catch (error) {
+        console.log(error.message);
+    }
+});
+
+
+
+//Actualizar datos del usuario administrador
+app.put('/update-admin/:id', async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+
+
+
+    const userSearch = await pool.query(`SELECT id FROM users_admin WHERE id = ${id}`);
+
+    if (userSearch.rows.length > 0) {
+
+        const userId = userSearch.rows[0].id;
+        const passwordHash = await bcrypt.hash(data.password, 10);
+
+        const updateUser = await pool.query(`UPDATE users_admin SET password = '${passwordHash}' WHERE id = ${userId};`);
+
+
+        if (updateUser) {
+            res.status(200).send("Usuario actualizado con exito!!!");
+        } else {
+            res.status(500).send("Usuario no actualizado");
+        }
+
+    } else {
+        res.status(404).send("Usuario no encontrado");
+    }
+
+
+
+});
+
+
+
+//Login administrador
+app.post('/login-admin', async (req, res) => {
+    const data = req.body;
+
+    const userExists = await pool.query(`SELECT * FROM users_admin WHERE username =  '${data.username}'`);
+
+    console.log(userExists);
+
+    if (userExists.rows.length == 0) {
+        res.json("Usuario incorrecto");
+    } else {
+        const passwordVerify = await bcrypt.compare(data.password, userExists.rows[0].password);
+
+        if (passwordVerify) {
+            //const user = userExists.rows;
+            req.session.userDataAdmin = userExists.rows;
+            res.json(req.session.userDataAdmin);
+        } else {
+            res.status(500).send("Error");
+        }
+    }
+
+
+});
+
+
+
+//Crear usuario administrador
+app.post('/create-admin', async (req, res) => {
+    try {
+        const data = req.body;
+        const passwordHash = await bcrypt.hash('admin', 10);
+       await pool.query(`INSERT INTO users_admin (username, password) VALUES ('${data.username}', '${passwordHash}');`);
+        res.status(200).send("Nuevo admin creado con exito!!!");
+    } catch (error) {
+        res.send("Error al crear un administrador");
+    }
+
+});
+
+
+
+
+
+
+
 
 
 

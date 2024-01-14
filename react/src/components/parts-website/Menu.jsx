@@ -249,7 +249,7 @@ export const Menu = () => {
                         type: 'Pizza Chica',
                         quantity: selectedItemsSmallPizza[element.id] || 0,
                         price: selectedItemsSmallPizza[element.id] * element.price_small,
-                        img: element.img
+                        img: element.image
                       })
                     } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>

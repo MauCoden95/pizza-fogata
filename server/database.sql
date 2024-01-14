@@ -17,3 +17,9 @@ create table users(
     phone int (255),
     password varchar(255)
 );
+
+create table users_admin(
+    id SERIAL primary key,
+    username varchar(255),
+    password varchar(255)
+);
