@@ -5,6 +5,8 @@ const pool = require('./db');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const multer = require('multer');
+const path = require('path');
 
 
 
@@ -105,6 +107,59 @@ app.get('/postres', async (req, res) => {
     }
 });
 
+
+//Crear producto
+app.post('/create-product', async (req, res) => {
+    try {
+        const data = req.body;
+        var parts = data.image.split("\\");
+        var path = parts.slice(2).join("\\");
+
+
+
+        const save = await pool.query(`INSERT INTO products (name,type,price_big,price_small,portion,image) VALUES ('${data.name}', '${data.type}',${data.price_big},${data.price_small},${data.portion},'${path}')`);
+
+        if (save) {
+            res.json("Producto creado!!!");
+        } else {
+            res.json("Error al crear producto");
+        }
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, '../react/public/img');
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
+});
+
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.send('Archivo subido con éxito');
+});
+
+
+
+//Eliminar producto
+app.delete('/delete-product/:id', async (req, res) => {
+    try {
+        const data = req.params.id;
+        const id = parseInt(data);
+
+
+
+        await pool.query(`DELETE FROM products WHERE id = ${id}`);
+        res.status(200).send("Producto eliminado con exito!!!");
+    } catch (error) {
+        res.status(500).send("Error al eliminar un producto");
+    }
+});
 
 
 
@@ -282,7 +337,7 @@ app.post('/login-admin', async (req, res) => {
     console.log(userExists);
 
     if (userExists.rows.length == 0) {
-        res.json("Usuario incorrecto");
+        res.status(500).send("Usuario incorrecto");
     } else {
         const passwordVerify = await bcrypt.compare(data.password, userExists.rows[0].password);
 
@@ -304,15 +359,33 @@ app.post('/login-admin', async (req, res) => {
 app.post('/create-admin', async (req, res) => {
     try {
         const data = req.body;
+
+
         const passwordHash = await bcrypt.hash('admin', 10);
-       await pool.query(`INSERT INTO users_admin (username, password) VALUES ('${data.username}', '${passwordHash}');`);
+        await pool.query(`INSERT INTO users_admin (username, password) VALUES ('${data.username}', '${passwordHash}');`);
         res.status(200).send("Nuevo admin creado con exito!!!");
     } catch (error) {
-        res.send("Error al crear un administrador");
+        res.status(500).send("Error al crear un administrador");
     }
 
 });
 
+
+
+//Eliminar usuario administrador
+app.delete('/delete-admin/:id', async (req, res) => {
+    try {
+        const data = req.params.id;
+        const id = parseInt(data);
+
+
+
+        await pool.query(`DELETE FROM users_admin WHERE id = ${id}`);
+        res.status(200).send("Admin eliminado con exito!!!");
+    } catch (error) {
+        res.status(500).send("Error al eliminar un administrador");
+    }
+});
 
 
 

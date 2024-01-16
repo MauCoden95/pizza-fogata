@@ -2,6 +2,8 @@ import { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 
 
@@ -25,10 +27,11 @@ export const LoginAdmin = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log(formData);
+        
 
         if (formData.username == '' || formData.password == '') {
-            setLoginError('Error, campos del formulario vacíos');
+            //setLoginError('Error, campos del formulario vacíos');
+            Swal.fire("Error, campos vacíos", "", "error");
             console.error("Error, campos del formulario vacíos");
         } else {
             axios.post('http://localhost:5000/login-admin', formData)
@@ -36,9 +39,11 @@ export const LoginAdmin = () => {
                     localStorage.setItem('userDataAdmin', JSON.stringify(response.data[0]));
                     //setLoginError('');
                     navigate('/dashboard');
+                    
                 })
                 .catch(error => {
-                    setLoginError("Error, usuario y/o contraseña incorrectos");
+                    //setLoginError("Error, usuario y/o contraseña incorrectos");
+                    Swal.fire("Error, usuario y/o contraseña incorrectos", "", "error");
                     console.error("Error, usuario y/o contraseña incorrectos");
                 });
 
