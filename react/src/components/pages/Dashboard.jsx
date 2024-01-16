@@ -136,9 +136,28 @@ export const Dashboard = () => {
     };
 
 
-    const handleLogout = () => {
-        localStorage.removeItem('userDataAdmin');
-        navigate('/login-admin');
+    const handleLogout = (confirm) => {
+
+        if (confirm == true) {
+            Swal.fire({
+                title: "¿Desea cerrar sesión?",
+                showDenyButton: true,
+                confirmButtonText: "Si",
+                denyButtonText: `No`
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.removeItem('userDataAdmin');
+                    navigate('/login-admin');
+                } else if (result.isDenied) {
+
+                }
+            });
+        }else{
+            localStorage.removeItem('userDataAdmin');
+            navigate('/login-admin');
+        }
+
+        
     }
 
 
@@ -209,7 +228,7 @@ export const Dashboard = () => {
                         Swal.fire("Administrador Eliminado", "", "success");
 
                         if (userId == userIdAdmin) {
-                            handleLogout();
+                            handleLogout(false);
                         }
                     })
                     .catch(error => {
@@ -310,7 +329,7 @@ export const Dashboard = () => {
                     .then(response => {
                         Swal.fire("Producto Eliminado", "", "success");
 
-                      
+
                     })
                     .catch(error => {
                         console.log("Error");
@@ -350,10 +369,10 @@ export const Dashboard = () => {
                         <li onClick={() => setVisible(2)} className='w-full py-4 duration-300 text-center text-white cursor-pointer hover:bg-yellow-500 hover:text-red-500'>Usuario</li>
                         <li onClick={() => setVisible(3)} className='w-full py-4 duration-300 text-center text-white cursor-pointer hover:bg-yellow-500 hover:text-red-500'>Administradores</li>
                         <li onClick={() => setVisible(4)} className='w-full py-4 duration-300 text-center text-white cursor-pointer hover:bg-yellow-500 hover:text-red-500'>Productos</li>
-                        <li className='w-full py-4 duration-300 text-center text-white cursor-pointer hover:bg-yellow-500 hover:text-red-500'>Acerca de</li>
+                        <li onClick={() => setVisible(5)} className='w-full py-4 duration-300 text-center text-white cursor-pointer hover:bg-yellow-500 hover:text-red-500'>Acerca de</li>
                     </ul>
 
-                    <button onClick={handleLogout} className='absolute bottom-5 duration-300 text-white hover:text-yellow-500 text-4xl'><i class="fas fa-sign-out-alt"></i></button>
+                    <button onClick={() => handleLogout(true)} className='absolute bottom-5 duration-300 text-white hover:text-yellow-500 text-4xl'><i class="fas fa-sign-out-alt"></i></button>
                 </div>
 
                 <div className={`${visible == 1 ? 'block' : 'hidden'} w-5/6 h-full`}>
@@ -541,7 +560,7 @@ export const Dashboard = () => {
                                                     <th scope="col" class="px-6 py-4 text-center">
                                                         {/* <button onClick={() => deleteAdmin(element.id)} href={`http://localhost:5000/delete-admin/${element.id}`}><i className='text-2xl text-red-600 hover:text-red-400 fas fa-trash'></i></button> */}
                                                         <button><i className='text-2xl text-blue-600 hover:text-blue-400 fas fa-edit mr-1'></i></button>
-                                                        <button onClick={ () => deleteProduct(element.id) }><i className='text-2xl text-red-600 hover:text-red-400 fas fa-trash'></i></button>
+                                                        <button onClick={() => deleteProduct(element.id)}><i className='text-2xl text-red-600 hover:text-red-400 fas fa-trash'></i></button>
                                                     </th>
                                                 </tr>
                                             ))}
@@ -551,6 +570,14 @@ export const Dashboard = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+
+
+
+                <div className={`relative ${visible == 5 ? 'block' : 'hidden'} w-5/6 h-full  overflow-y-scroll`}>
+                    <img className='w-72 m-auto my-10' src="http://localhost:5173/img/Logo.png" alt="Logo" />
+                    <h2 className='text-center text-3xl'>Desarrollado por: Mauro Miguel</h2>
+                    <h2 className='text-center text-2xl mt-5'>Versión 1.0.0</h2>
                 </div>
             </div>
         </div>
