@@ -338,7 +338,7 @@ export const Menu = () => {
 
         <div className={`${visible == 3 ? 'block' : 'hidden'} w-full h-full`}>
           <h3 className='text-center text-3xl mb-3 py-3 bg-white'>Bebidas</h3>
-          <div className="w-full min-h-0 md:h-[35rem] pb-12 overflow-hidden grid grid-cols-2 md:grid-cols-3 md:gap-10 self-center justify-items-center">
+          <div className="w-full min-h-0 md:h-auto pb-12 overflow-hidden grid grid-cols-2 md:grid-cols-3 md:gap-10 self-center justify-items-center">
             {drinks.map((element) => (
               <div className="w-3/5 h-auto mb-12 md:mb-0" key={element.id}>
                 <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
