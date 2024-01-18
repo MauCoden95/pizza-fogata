@@ -143,7 +143,9 @@ export const Header = () => {
 
 
             <div className='w-full mt-8 mb-5 border-t-2 border-gray-800'></div>
-            <button className='w-full text-white bg-red-600 hover:bg-red-400 p-3 duration-500'>Comprar</button>
+            {
+              cartItems.length != 0 ? (<button className='w-full text-white bg-red-600 hover:bg-red-400 p-3 duration-500'>Comprar</button>) : (<button className='w-full text-white cursor-no-drop  bg-red-400 p-3 duration-500'>Comprar</button>) 
+            }
           </div>
 
         </div>

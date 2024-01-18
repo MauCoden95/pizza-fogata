@@ -19,10 +19,15 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
-    secret: 'tu-clave-secreta',
+    secret: 'key',
     resave: false,
     saveUninitialized: true,
 }));
+
+
+
+
+
 
 
 

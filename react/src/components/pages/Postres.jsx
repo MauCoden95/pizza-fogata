@@ -7,6 +7,9 @@ import { Footer } from '../parts-website/Footer'
 import { Title } from '../parts-website/Title'
 import axios from 'axios'
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 export const Postres = () => {
 
   const [postres, setPostres] = useState([]);
@@ -51,6 +54,33 @@ export const Postres = () => {
     }));
   };
 
+   //Agregar al carrito
+   const addToCart = (product) => {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const existingProductIndex = cart.findIndex(
+      (item) => item.product === product.name && item.type === product.type
+    );
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].quantity += product.quantity;
+    } else {
+      cart.push({
+        product: product.name,
+        type: product.type,
+        quantity: product.quantity,
+        price: product.price,
+        img: product.img
+      });
+      
+    }
+
+    Swal.fire("Producto agregado al carrito", "", "success");
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    console.log(localStorage.getItem('cart'));
+  };
+
 
 
   return (
@@ -59,23 +89,31 @@ export const Postres = () => {
       <Title title={title} image={img} />
       <div className='block w-full h-full'>
         <div className="w-full min-h-0 pb-12 overflow-hidden grid gap-10 self-center justify-items-center grid-cols-3">
-          {postres.map((element) => (
-            <div className="w-3/5 h-auto" key={element.id}>
-              <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
-              <h3 className='text-center text-2xl text-red-500 mb-1'>{element.name}</h3>
-              <div className='w-full min-h-0 flex justify-center'>
-                <h4 className='text-sm text-center'>
-                  <span className='block mb-1'>{element.price_big} $</span>
-                  <div>
-                    <button onClick={() => handleDecrement(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
-                    <span className='mx-1'>{selectedItems[element.id] || 0}</span>
-                    <button onClick={() => handleIncrement(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
-                  </div>
-                </h4>
+        {postres.map((element) => (
+              <div className="w-3/5 h-auto mb-12 md:mb-0" key={element.id}>
+                <img className='w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
+                <h3 className='text-center text-base md:text-2xl mb-4 text-red-500 mb-1'>{element.name}</h3>
+                <div className='w-full min-h-0 flex justify-center'>
+                  <h4 className='text-sm text-center'>
+                    <span className='block mb-1'>{element.price_big} $</span>
+                    <div>
+                      <button onClick={() => handleDecrement(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>-</button>
+                      <span className='mx-1'>{selectedItems[element.id] || 0}</span>
+                      <button onClick={() => handleIncrement(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
+                    </div>
+                  </h4>
+                </div>
+                {userLogged == true ? <button onClick={() =>
+                  addToCart({
+                    name: element.name,
+                    type: 'Postres',
+                    quantity: selectedItems[element.id] || 0,
+                    price: selectedItems[element.id] * element.price_big,
+                    img: element.image
+                  })
+                } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
               </div>
-              {userLogged == true ? <button className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
-            </div>
-          ))}
+            ))}
         </div>
       </div>
       <Footer />

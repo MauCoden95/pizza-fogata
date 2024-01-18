@@ -3,6 +3,9 @@ import { Header } from '../parts-website/Header'
 import { Footer } from '../parts-website/Footer'
 import axios from 'axios';
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 export const Register = () => {
 
     const [formData, setFormData] = useState({
@@ -29,27 +32,32 @@ export const Register = () => {
 
 
         if (formData.name == '' || formData.address == '' || formData.email == '' || formData.dni == '' || formData.phone == '' || formData.password == '' || formData.confirmPassword == '') {
-            setRegisterFailed("Error, campos vacíos");
-            setRegisterSuccess('');
+            // setRegisterFailed("Error, campos vacíos");
+            // setRegisterSuccess('');
+            Swal.fire("Error, campos vacíos", "", "error");
         }else{
             if(formData.password.length < 8 || formData.confirmPassword.length < 8) {
-                setRegisterSuccess('');
-                setRegisterFailed("Error, las contraseñas no pueden tener menos de 8 caracteres");
+                // setRegisterSuccess('');
+                // setRegisterFailed("Error, las contraseñas no pueden tener menos de 8 caracteres");
+                Swal.fire("Error, las contraseñas no pueden tener menos de 8 caracteres", "", "error");
             }else{
                 if (formData.password === formData.confirmPassword) {
                     axios.post('http://localhost:5000/register', formData)
                         .then(response => {
-                            setRegisterFailed("");
-                            setRegisterSuccess('Nuevo usuario registrado con exito!!!');
+                            // setRegisterFailed("");
+                            // setRegisterSuccess('Nuevo usuario registrado con exito!!!');
+                            Swal.fire("Nuevo usuario registrado con exito!!!", "", "success");
                             console.log('Respuesta exitosa:', response.data);
                         })
                         .catch(error => {
-                            setRegisterSuccess('');
-                            setRegisterFailed("No se pudo registrar el usuario");
+                            // setRegisterSuccess('');
+                            // setRegisterFailed("No se pudo registrar el usuario");
+                            Swal.fire("No se pudo registrar el usuario", "", "error");
                             console.error('Error en la petición:', error);
                         });
                 } else {
-                    setRegisterFailed("Error, las contraseñas no coinciden");
+                    Swal.fire("Error, las contraseñas no coinciden", "", "error");
+                    //setRegisterFailed("Error, las contraseñas no coinciden");
                 }
             }
         }

@@ -3,6 +3,8 @@ import { Header } from '../parts-website/Header'
 import { Footer } from '../parts-website/Footer'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 export const Login = () => {
 
@@ -26,7 +28,8 @@ export const Login = () => {
 
 
         if (formData.email == '' || formData.password == '') {
-            setLoginError('Error, campos del formulario vacíos');
+            Swal.fire("Error, campos del formulario vacíos", "", "error");
+            //setLoginError('Error, campos del formulario vacíos');
         } else {
             axios.post('http://localhost:5000/login', formData)
                 .then(response => {
@@ -35,7 +38,8 @@ export const Login = () => {
                     navigate('/');
                 })
                 .catch(error => {
-                    setLoginError("Error, email y/o contraseña incorrectos");
+                    Swal.fire("Error, usuario y/o contraseña incorrectos", "", "error");
+                    //setLoginError("Error, email y/o contraseña incorrectos");
                     console.error("Error, email y/o contraseña incorrectos");
                 });
 

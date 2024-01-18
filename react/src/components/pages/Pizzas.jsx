@@ -5,6 +5,10 @@ import { Footer } from '../parts-website/Footer'
 import { Title } from '../parts-website/Title'
 import axios from 'axios'
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+
 
 export const Pizzas = () => {
 
@@ -82,8 +86,8 @@ export const Pizzas = () => {
   const title = "Pizzas";
   const img = "http://localhost:5173/img/Muzzarella.png";
 
-  //Agregar al carrito
-  const addToCart = (product) => {
+   //Agregar al carrito
+   const addToCart = (product) => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existingProductIndex = cart.findIndex(
@@ -96,14 +100,20 @@ export const Pizzas = () => {
       cart.push({
         product: product.name,
         type: product.type,
-        quantity: product.quantity
+        quantity: product.quantity,
+        price: product.price,
+        img: product.img
       });
+      
     }
 
+    Swal.fire("Producto agregado al carrito", "", "success");
     localStorage.setItem('cart', JSON.stringify(cart));
 
     console.log(localStorage.getItem('cart'));
   };
+
+
 
   return (
     <div>
@@ -111,10 +121,9 @@ export const Pizzas = () => {
       <Title title={title} image={img} />
       <div className='block w-full h-full'>
       <div className='w-full h-full'>
-          <h3 className='text-center text-3xl mb-3 py-3 bg-white'>Pizzas</h3>
           <div className="w-full min-h-0 md:auto pb-12 overflow-hidden grid grid-cols-2 lg:grid-cols-3 md:gap-10 self-center justify-items-center">
-            {pizzas.map((element) => (
-              <div className="w-2/4 md:w-3/5 h-auto md:mt-12 md:mt-0" key={element.id}>
+          {pizzas.map((element) => (
+              <div className="w-2/4 md:w-3/5 h-auto md:mt-0" key={element.id}>
                 <img className='w-52 md:w-28 m-auto object-cover' src={`http://localhost:5173/img/${element.image}`} alt="Producto" />
                 <h3 className='text-center text-xl md:text-2xl mb-4 text-red-500 mb-1'>{element.name}</h3>
                 <div className='w-full min-h-0 flex flex-col md:flex-row justify-between'>
@@ -125,6 +134,16 @@ export const Pizzas = () => {
                       <span className='mx-1'>{selectedItemsBigPizza[element.id] || 0}</span>
                       <button onClick={() => handleIncrementBigPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                     </div>
+
+                    {userLogged == true ? <button onClick={() =>
+                      addToCart({
+                        name: element.name,
+                        type: 'Pizza Grande',
+                        quantity: selectedItemsBigPizza[element.id] || 0,
+                        price: selectedItemsBigPizza[element.id] * element.price_big,
+                        img: element.image
+                      })
+                    } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
 
                   <h4 className='text-xs md:text-sm text-center mb-5 md:mb-0'>
@@ -134,6 +153,15 @@ export const Pizzas = () => {
                       <span className='mx-1'>{selectedItemsSmallPizza[element.id] || 0}</span>
                       <button onClick={() => handleIncrementSmallPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                     </div>
+                    {userLogged == true ? <button onClick={() =>
+                      addToCart({
+                        name: element.name,
+                        type: 'Pizza Chica',
+                        quantity: selectedItemsSmallPizza[element.id] || 0,
+                        price: selectedItemsSmallPizza[element.id] * element.price_small,
+                        img: element.image
+                      })
+                    } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
 
                   <h4 className='text-xs md:text-sm text-center mb-5 md:mb-0'>
@@ -143,9 +171,18 @@ export const Pizzas = () => {
                       <span className='mx-1'>{selectedItemsPortionPizza[element.id] || 0}</span>
                       <button onClick={() => handleIncrementPortionPizza(element.id)} className='w-5 rounded mx-1 p-1 bg-gray-500 hover:bg-gray-900 hover:text-white'>+</button>
                     </div>
+                    {userLogged == true ? <button onClick={() =>
+                      addToCart({
+                        name: element.name,
+                        type: 'Porción',
+                        quantity: selectedItemsPortionPizza[element.id] || 0,
+                        price: selectedItemsPortionPizza[element.id] * element.portion,
+                        img: element.image
+                      })
+                    } className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : ''}
                   </h4>
                 </div>
-                { userLogged == true ? <button className='block w-full py-2 my-3 rounded-md bg-red-500 hover:bg-red-950 duration-300 text-white'>Añadir <i class="fas fa-shopping-cart"></i></button> : '' }
+
               </div>
             ))}
           </div>
