@@ -61,6 +61,23 @@ export const Header = () => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
+  
+  const cartRemove = (itemCart) => {
+      //console.log(item);
+      let cart = JSON.parse(localStorage.getItem('cart'));
+
+     
+    
+      let cartReduce = cart.findIndex(item => item.product == itemCart);
+      cart.splice(cartReduce, 1);
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      setCartItems(cart);
+      console.log(cart);
+  }
+
+
 
 
   return (
@@ -71,7 +88,7 @@ export const Header = () => {
         </button>
 
         <div className='w-5/6 h-auto rounded-md bg-white flex justify-center'>
-          <div className='w-3/5 min-h-0 p-8'>
+          <div className='relative w-3/5 min-h-0 p-8'>
             <div className='w-full pb-5 mb-12 border-b-2 border-gray-400 flex items-center justify-between'>
               <h2 className='text-3xl'>Carrito de compras</h2>
               <span className='text-xl'>{cartItems.length} Items</span>
@@ -95,12 +112,14 @@ export const Header = () => {
                       <td className='text-center'>{item.quantity}</td>
                       <td className='text-center'>{item.price}</td>
                       <td className=''><img className='w-16 m-auto' src={`http://localhost:5173/img/${item.img}`} alt="Logo" /></td>
-                      <td className='text-center'><button className='fas fa-trash text-red-500 hover:text-red-800 text-3xl'></button></td>
+                      <td className='text-center'><button onClick={ () => cartRemove(item.product) } className='fas fa-trash text-red-500 hover:text-red-800 text-3xl'></button></td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             }
+
+              
           </div>
 
           <div className='w-2/5 h-full p-8 bg-gray-200'>
@@ -133,7 +152,7 @@ export const Header = () => {
         <div className='relative w-5/6 md:w-11/12 h-full m-auto text-white flex items-center justify-end'>
           {userData ? (
             <div className='w-auto flex'>
-              <button onClick={toggleCart}>Mi carrito <span>({cartItems.length})</span> <i class="fas fa-shopping-cart mr-6"></i></button>
+              <button onClick={toggleCart}>Mi carrito  <i class="fas fa-shopping-cart mr-6"></i></button>
               <h2 className='text-center cursor-pointer' onClick={toggleOptions}>Bienvenido, {userData.name} <span className='fas fa-user'></span> </h2>
               {/* <a onClick={handleLogout} className='cursor-pointer hover:text-underline'>Cerrar Sesión</a> */}
               <div className={`${showOptions ? 'block' : 'hidden'}  absolute top-full right-3 w-52 h-auto duration-300 z-40 bg-white border-2 border-red-500`}>

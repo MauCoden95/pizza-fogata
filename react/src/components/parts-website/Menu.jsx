@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 export const Menu = () => {
   const [pizzas, setPizzas] = useState([]);
   const [empanadas, setEmpanadas] = useState([]);
@@ -189,8 +192,10 @@ export const Menu = () => {
         price: product.price,
         img: product.img
       });
+      
     }
 
+    Swal.fire("Producto agregado al carrito", "", "success");
     localStorage.setItem('cart', JSON.stringify(cart));
 
     console.log(localStorage.getItem('cart'));
